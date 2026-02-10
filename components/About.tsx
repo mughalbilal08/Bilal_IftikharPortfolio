@@ -14,7 +14,7 @@ export const About = () => {
                 >
                     <h2 className="text-sm font-mono tracking-widest text-secondary mb-8 uppercase">01. Profile</h2>
                     <p className="text-lg md:text-xl font-light leading-relaxed text-gray-300 max-w-3xl">
-                        Motivated <span className="text-white font-medium">Associate Data Engineer</span> with hands-on
+                        Motivated <span className="text-white font-medium">Data Engineer</span> with hands-on
                         experience in building data pipelines, real-time ingestion
                         systems, and automated analytics workflows using <span className="text-indigo-400">Spark, PySpark, Airflow, DBT, Snowflake</span>, and cloud platforms (Azure + GCP). <br /><br />
                         Skilled in designing scalable data solutions,

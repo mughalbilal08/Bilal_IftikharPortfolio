@@ -65,7 +65,7 @@ const projects = [
 
 export const Projects = () => {
     return (
-        <section id="projects" className="py-20 md:py-32 px-4 md:px-16 bg-background text-foreground relative">
+        <section id="projects" className="py-20 md:py-32 px-4 md:px-16 bg-transparent text-foreground relative">
             {/* Background Gradient Blob */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
 
@@ -113,7 +113,7 @@ const Card = ({ project, index }: { project: any, index: number }) => {
             viewport={{ once: true }}
             transition={{ delay: index * 0.05, duration: 0.5 }}
             onMouseMove={handleMouseMove}
-            className={`group relative bg-[#111] border border-white/10 overflow-hidden rounded-2xl hover:border-white/20 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10 flex flex-col ${project.featured ? 'md:col-span-2' : 'md:col-span-1'}`}
+            className={`group relative bg-zinc-900/80 backdrop-blur-md border border-white/10 overflow-hidden rounded-2xl hover:border-white/20 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10 flex flex-col ${project.featured ? 'md:col-span-2' : 'md:col-span-1'}`}
         >
             {/* Spotlight Effect */}
             <motion.div

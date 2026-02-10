@@ -5,7 +5,7 @@ import { Mail, MapPin, Phone, Github, Linkedin } from "lucide-react";
 
 export const Contact = () => {
     return (
-        <section id="contact" className="py-20 md:py-32 px-4 md:px-16 bg-background text-foreground relative overflow-hidden">
+        <section id="contact" className="py-20 md:py-32 px-4 md:px-16 bg-transparent text-foreground relative overflow-hidden">
             <div className="container mx-auto grid md:grid-cols-2 gap-16">
 
                 {/* Contact Info */}
@@ -57,7 +57,7 @@ export const Contact = () => {
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="bg-[#111111] p-8 md:p-12 border border-white/5 space-y-6"
+                    className="bg-zinc-900/80 backdrop-blur-md p-8 md:p-12 border border-white/5 space-y-6"
                 >
                     <h3 className="text-sm font-mono tracking-widest text-secondary mb-4 uppercase">
                         Contact Form

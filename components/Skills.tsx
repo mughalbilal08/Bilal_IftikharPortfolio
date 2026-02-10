@@ -19,7 +19,7 @@ const skills = [
 
 export const Skills = () => {
     return (
-        <section id="skills" className="py-20 md:py-32 px-4 md:px-16 bg-zinc-900 border-t border-white/5">
+        <section id="skills" className="py-20 md:py-32 px-4 md:px-16 bg-white/5 backdrop-blur-sm border-t border-white/5">
             <div className="container mx-auto">
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}

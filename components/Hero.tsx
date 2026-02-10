@@ -30,7 +30,7 @@ export const Hero = () => {
     }, [mouseX, mouseY]);
 
     return (
-        <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-background text-foreground">
+        <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-transparent text-foreground">
             {/* Background Elements (Subtle Data Flow abstract) */}
             <div className="absolute inset-0 pointer-events-none">
                 <motion.div
@@ -58,7 +58,7 @@ export const Hero = () => {
                         IFTIKHAR
                     </h1>
                     <p className="text-sm md:text-lg font-medium tracking-[0.3em] uppercase text-secondary">
-                        Associate Data Engineer
+                        Data Engineer
                     </p>
                 </motion.div>
 

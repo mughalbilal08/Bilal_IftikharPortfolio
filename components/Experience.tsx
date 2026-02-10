@@ -41,7 +41,7 @@ const experiences = [
 
 export const Experience = () => {
     return (
-        <section id="experience" className="py-20 md:py-32 px-4 md:px-16 bg-zinc-900 text-foreground">
+        <section id="experience" className="py-20 md:py-32 px-4 md:px-16 bg-white/5 backdrop-blur-sm text-foreground">
             <div className="container mx-auto max-w-5xl">
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}
