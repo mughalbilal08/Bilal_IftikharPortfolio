@@ -30,7 +30,7 @@ export const Hero = () => {
     }, [mouseX, mouseY]);
 
     return (
-        <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-transparent text-foreground">
+        <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-white text-foreground">
             {/* Background Elements (Subtle Data Flow abstract) */}
             <div className="absolute inset-0 pointer-events-none">
                 <motion.div
@@ -51,13 +51,13 @@ export const Hero = () => {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="text-center"
                 >
-                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-2 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">
+                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-2 bg-clip-text text-transparent bg-gradient-to-b from-zinc-900 to-zinc-500">
                         BILAL
                     </h1>
-                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-gray-200 to-gray-600">
+                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-zinc-700 to-zinc-400">
                         IFTIKHAR
                     </h1>
-                    <p className="text-sm md:text-lg font-medium tracking-[0.3em] uppercase text-secondary">
+                    <p className="text-sm md:text-lg font-medium tracking-[0.3em] uppercase text-blue-600 font-bold">
                         Data Engineer
                     </p>
                 </motion.div>
@@ -67,15 +67,15 @@ export const Hero = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
-                    className="absolute bottom-8 left-8 md:top-1/2 md:-translate-y-1/2 md:left-12 flex md:flex-col gap-6 text-secondary"
+                    className="absolute bottom-8 left-8 md:top-1/2 md:-translate-y-1/2 md:left-12 flex md:flex-col gap-6 text-zinc-400"
                 >
-                    <Link href="https://www.linkedin.com/in/bilal-iftikhar-26130a262" target="_blank" className="hover:text-white transition-colors">
+                    <Link href="https://www.linkedin.com/in/bilal-iftikhar-26130a262" target="_blank" className="hover:text-blue-600 transition-colors">
                         <Linkedin size={20} />
                     </Link>
-                    <Link href="https://github.com/mughalbilal08" target="_blank" className="hover:text-white transition-colors">
+                    <Link href="https://github.com/mughalbilal08" target="_blank" className="hover:text-blue-600 transition-colors">
                         <Github size={20} />
                     </Link>
-                    <Link href="mailto:bilaliftikhar.967@gmail.com" className="hover:text-white transition-colors">
+                    <Link href="mailto:bilaliftikhar.967@gmail.com" className="hover:text-blue-600 transition-colors">
                         <Mail size={20} />
                     </Link>
                 </motion.div>

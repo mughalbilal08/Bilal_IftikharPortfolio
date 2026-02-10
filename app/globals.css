@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --primary: #ffffff;
-  --secondary: #a1a1aa;
-  /* zinc-400 */
-  --accent: #27272a;
-  /* zinc-800 */
+  --background: #fafafa;
+  /* Zinc-50 */
+  --foreground: #18181b;
+  /* Zinc-900 */
+  --primary: #2563eb;
+  /* Blue-600 */
+  --secondary: #52525b;
+  /* Zinc-600 */
+  --accent: #f4f4f5;
+  /* Zinc-100 */
 }
 
 @theme inline {
@@ -20,11 +23,11 @@
 }
 
 body {
-  background-color: #121212;
+  background-color: var(--background);
   background-image:
-    radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.05) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.02) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.5) 0px, transparent 50%);
   background-attachment: fixed;
   background-size: 200% 200%;
   animation: gradientForBody 15s ease infinite;
