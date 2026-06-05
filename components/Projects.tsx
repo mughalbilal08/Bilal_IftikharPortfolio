@@ -1,83 +1,128 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Cloud, Plane, Search, ShoppingCart, Shield, Car, FolderGit2, ArrowUpRight, Github } from "lucide-react";
-import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+    Cloud,
+    Plane,
+    Search,
+    ShoppingCart,
+    Shield,
+    Car,
+    FolderGit2,
+    ArrowUpRight,
+    Database,
+    Code2,
+    Rocket,
+} from "lucide-react";
+import React, { useState } from "react";
+import Link from "next/link";
 
-const projects = [
+type ProjectCategory = "data-engineering" | "software-development";
+
+interface Project {
+    title: string;
+    section: ProjectCategory;
+    tech: string[];
+    icon: React.ElementType;
+    description: string;
+    iconBg: string;
+    iconColor: string;
+    gradient?: string;
+}
+
+const projects: Project[] = [
     {
         title: "Real-Time Flight Data Streaming",
-        category: "Data Engineering",
+        section: "data-engineering",
         tech: ["Kafka", "Spark", "Snowflake", "Power BI"],
         icon: Plane,
-        description: "End-to-end Kafka streaming architecture for high-volume aviation data. Fault-tolerant processing with DLQ handling and real-time dashboards.",
-        gradient: "from-blue-500 to-cyan-400",
-        featured: true
+        description:
+            "End-to-end Kafka streaming architecture for high-volume aviation data. Fault-tolerant processing with DLQ handling and real-time dashboards.",
+        iconBg: "bg-blue-50",
+        iconColor: "text-blue-600",
     },
     {
         title: "Weather Insights Dashboard",
-        category: "Cloud Engineering",
+        section: "data-engineering",
         tech: ["Azure Event Hubs", "Stream Analytics"],
         icon: Cloud,
-        description: "Real-time ingestion system handling weather data via Azure infrastructure.",
-        gradient: "from-emerald-500 to-teal-400",
-        featured: false
+        description:
+            "Real-time ingestion system handling weather data via Azure infrastructure.",
+        iconBg: "bg-purple-50",
+        iconColor: "text-purple-600",
     },
     {
         title: "LinkedIn Job Searcher",
-        category: "Data Pipeline",
+        section: "data-engineering",
         tech: ["Spark", "PySpark", "Airflow"],
         icon: Search,
-        description: "Automated extraction pipeline processing job data from multiple sources.",
-        gradient: "from-orange-500 to-amber-400",
-        featured: false
+        description:
+            "Automated extraction pipeline processing job data from multiple sources.",
+        iconBg: "bg-orange-50",
+        iconColor: "text-orange-600",
     },
     {
         title: "E-Commerce Analytics Pipeline",
-        category: "Analytics Engineering",
+        section: "data-engineering",
         tech: ["Snowflake", "dbt", "Power BI"],
         icon: ShoppingCart,
-        description: "Medallion Architecture (Bronze, Silver, Gold) implementation for e-commerce data. Standardized metrics and governance.",
-        gradient: "from-purple-500 to-pink-400",
-        featured: true
+        description:
+            "Medallion Architecture (Bronze, Silver, Gold) implementation for e-commerce data. Standardized metrics and governance.",
+        iconBg: "bg-emerald-50",
+        iconColor: "text-emerald-600",
     },
     {
         title: "AI-Driven Secure File Sharing",
-        category: "Full Stack + AI",
+        section: "software-development",
         tech: ["Django", "Three.js", "AI/ML", "Encryption"],
         icon: Shield,
-        description: "Zero Trust file sharing platform with AES encryption and AI-based anomaly detection.",
-        gradient: "from-indigo-500 to-violet-400",
-        featured: false
+        description:
+            "Zero Trust file sharing platform with AES encryption and AI-based anomaly detection.",
+        iconBg: "bg-red-50",
+        iconColor: "text-red-600",
+        gradient: "from-red-500 to-rose-400",
     },
     {
         title: "DirectDrive",
-        category: "Web App",
+        section: "software-development",
         tech: ["PHP", "MySQL", "Bootstrap"],
         icon: Car,
-        description: "Smart ride assignment system with role-based access control.",
-        gradient: "from-rose-500 to-red-400",
-        featured: false
+        description:
+            "Smart ride assignment system with role-based access control.",
+        iconBg: "bg-indigo-50",
+        iconColor: "text-indigo-600",
+        gradient: "from-indigo-500 to-violet-400",
     },
     {
         title: "TaskNest",
-        category: "Web App",
+        section: "software-development",
         tech: ["Web Tech"],
         icon: FolderGit2,
-        description: "Web-based task management system inspired by ClickUp.",
+        description:
+            "Web-based task management system inspired by ClickUp.",
+        iconBg: "bg-cyan-50",
+        iconColor: "text-cyan-600",
         gradient: "from-cyan-500 to-blue-400",
-        featured: false
-    }
+    },
+];
+
+const filters: { id: ProjectCategory; label: string; icon: React.ElementType }[] = [
+    { id: "data-engineering", label: "Data Engineering", icon: Database },
+    { id: "software-development", label: "Software Development", icon: Code2 },
 ];
 
 export const Projects = () => {
+    const [activeCategory, setActiveCategory] = useState<ProjectCategory>("data-engineering");
+
+    const filteredProjects = projects.filter((p) => p.section === activeCategory);
+
     return (
         <section id="projects" className="py-20 md:py-32 px-4 md:px-16 bg-slate-50 relative overflow-hidden">
-            {/* Grid Pattern Background */}
-            <div className="absolute inset-0 z-0 opacity-[0.03]"
+            <div
+                className="absolute inset-0 z-0 opacity-[0.03]"
                 style={{
                     backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`,
-                    backgroundSize: '40px 40px'
+                    backgroundSize: "40px 40px",
                 }}
             />
 
@@ -86,86 +131,146 @@ export const Projects = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-16 md:text-center max-w-3xl mx-auto"
+                    className="mb-12 md:text-center max-w-3xl mx-auto"
                 >
-                    <h2 className="text-sm font-mono tracking-widest text-blue-600 mb-4 uppercase font-bold">
-                        03. Portfolio
+                    <h2 className="text-sm font-mono tracking-widest text-violet-600 mb-4 uppercase font-bold">
+                        My Work
                     </h2>
                     <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">
-                        Featured Projects
+                        Projects
                     </h3>
                     <p className="text-zinc-600 leading-relaxed">
-                        A selection of data engineering pipelines, cloud architectures, and full-stack applications.
+                        A collection of data engineering solutions and software applications
+                        I&apos;ve built to solve real-world problems.
                     </p>
                 </motion.div>
 
-                <div className="space-y-24">
-                    {projects.map((project, index) => (
-                        <Card key={index} project={project} index={index} />
-                    ))}
+                <div className="flex flex-wrap justify-center gap-3 mb-12">
+                    {filters.map(({ id, label, icon: Icon }) => {
+                        const isActive = activeCategory === id;
+                        return (
+                            <button
+                                key={id}
+                                onClick={() => setActiveCategory(id)}
+                                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
+                                    isActive
+                                        ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-600/20"
+                                        : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
+                                }`}
+                            >
+                                <Icon size={16} />
+                                {label}
+                            </button>
+                        );
+                    })}
                 </div>
+
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeCategory}
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -16 }}
+                        transition={{ duration: 0.3 }}
+                        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                    >
+                        {filteredProjects.map((project, index) => (
+                            <ProjectCard
+                                key={project.title}
+                                project={project}
+                                index={index}
+                                variant={activeCategory}
+                            />
+                        ))}
+                    </motion.div>
+                </AnimatePresence>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mt-16 rounded-2xl bg-violet-50 border border-violet-100 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6"
+                >
+                    <div className="flex items-center gap-4 text-center md:text-left">
+                        <div className="hidden sm:flex bg-violet-100 p-3 rounded-xl text-violet-600">
+                            <Rocket size={24} />
+                        </div>
+                        <p className="text-zinc-700 font-medium text-lg">
+                            Have an idea in mind? Let&apos;s build something amazing together.
+                        </p>
+                    </div>
+                    <Link
+                        href="#contact"
+                        className="inline-flex items-center gap-2 bg-violet-600 text-white font-semibold text-sm px-6 py-3 rounded-full hover:bg-violet-700 transition-colors shadow-lg shadow-violet-600/20 whitespace-nowrap"
+                    >
+                        Get In Touch
+                    </Link>
+                </motion.div>
             </div>
         </section>
     );
 };
 
-const Card = ({ project, index }: { project: any, index: number }) => {
+const ProjectCard = ({
+    project,
+    index,
+    variant,
+}: {
+    project: Project;
+    index: number;
+    variant: ProjectCategory;
+}) => {
+    const Icon = project.icon;
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="group relative bg-white rounded-3xl overflow-hidden border border-zinc-100 hover:border-blue-100 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-500"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.08 }}
+            className="group bg-white rounded-2xl border border-zinc-100 p-6 hover:border-blue-100 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 flex flex-col"
         >
-            <div className="grid md:grid-cols-[1fr_2fr] gap-0">
-                {/* Visual Side */}
-                <div className={`relative h-64 md:h-auto overflow-hidden bg-gradient-to-br ${project.gradient} p-10 flex flex-col justify-between group-hover:scale-[1.02] transition-transform duration-700`}>
-                    <div className="relative z-10">
-                        <div className="bg-white/20 backdrop-blur-md p-4 rounded-2xl inline-flex text-white mb-6 shadow-lg">
-                            <project.icon size={32} />
+            <div className="flex items-start gap-4 mb-5">
+                {variant === "software-development" && project.gradient ? (
+                    <div className="relative flex-shrink-0">
+                        <div
+                            className={`absolute left-0 top-0 bottom-0 w-1 rounded-full bg-gradient-to-b ${project.gradient}`}
+                        />
+                        <div className={`ml-3 p-3 rounded-xl ${project.iconBg}`}>
+                            <Icon size={22} className={project.iconColor} />
                         </div>
-                        <h4 className="text-3xl font-bold text-white leading-tight">
-                            {project.title}
-                        </h4>
                     </div>
-
-                    <div className="relative z-10 mt-auto">
-                        <span className="inline-block px-4 py-2 bg-black/20 backdrop-blur-md rounded-full text-white/90 text-xs font-bold uppercase tracking-widest">
-                            {project.category}
-                        </span>
+                ) : (
+                    <div className={`p-3 rounded-xl ${project.iconBg} flex-shrink-0`}>
+                        <Icon size={22} className={project.iconColor} />
                     </div>
-
-                    {/* Decorative Circles */}
-                    <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-black/5 rounded-full blur-3xl" />
-                </div>
-
-                {/* Content Side */}
-                <div className="p-8 md:p-12 flex flex-col justify-center bg-white relative">
-                    <p className="text-zinc-600 text-lg leading-relaxed mb-8">
-                        {project.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-8">
-                        {project.tech.map((t: string, i: number) => (
-                            <span key={i} className="text-xs font-bold text-zinc-500 bg-zinc-50 px-3 py-1.5 rounded-md border border-zinc-100">
-                                {t}
-                            </span>
-                        ))}
-                    </div>
-
-                    <div className="flex items-center gap-6 mt-auto">
-                        <button className="flex items-center gap-2 text-sm font-bold text-zinc-900 hover:text-blue-600 transition-colors group/btn">
-                            View Project
-                            <ArrowUpRight size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-                        </button>
-                        <button className="flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-zinc-900 transition-colors">
-                            <Github size={18} /> Source Code
-                        </button>
-                    </div>
-                </div>
+                )}
+                <h4 className="text-lg font-bold text-zinc-900 leading-snug pt-1">
+                    {project.title}
+                </h4>
             </div>
+
+            <p className="text-zinc-600 text-sm leading-relaxed mb-5 flex-grow">
+                {project.description}
+            </p>
+
+            <div className="flex flex-wrap gap-2 mb-5">
+                {project.tech.map((t) => (
+                    <span
+                        key={t}
+                        className="text-xs font-medium text-zinc-500 bg-zinc-50 px-2.5 py-1 rounded-md border border-zinc-100"
+                    >
+                        {t}
+                    </span>
+                ))}
+            </div>
+
+            <button className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors group/btn mt-auto">
+                View Project
+                <ArrowUpRight
+                    size={16}
+                    className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
+                />
+            </button>
         </motion.div>
     );
-}
+};

@@ -16,7 +16,7 @@ export const About = () => {
                     <p className="text-lg md:text-xl font-light leading-relaxed text-zinc-700 max-w-3xl">
                         Motivated <span className="text-zinc-900 font-bold">Data Engineer</span> with hands-on
                         experience in building data pipelines, real-time ingestion
-                        systems, and automated analytics workflows using <span className="text-blue-600 font-semibold">Spark, PySpark, Airflow, DBT, Snowflake</span>, and cloud platforms (Azure + GCP). <br /><br />
+                        systems, and automated analytics workflows using <span className="text-blue-600 font-semibold">Spark, PySpark, Airflow, DBT, Snowflake</span>, and cloud platforms (Azure + AWS). <br /><br />
                         Skilled in designing scalable data solutions,
                         containerizing workloads with Docker, and developing
                         streaming dashboards using modern cloud-native tools.
