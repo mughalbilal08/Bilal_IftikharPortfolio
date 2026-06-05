@@ -16,12 +16,17 @@ const HeroScene = dynamic(() => import("./three/HeroScene"), {
 export const Hero = () => {
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 120]);
-
+    const heroOpacity = useTransform(scrollY, [0, 450], [1, 0]);
+    const heroScale = useTransform(scrollY, [0, 450], [1, 0.92]);
+    const heroBlur = useTransform(scrollY, [0, 450], [0, 8]);
+    const heroFilter = useTransform(heroBlur, (v) => `blur(${v}px)`);
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const springConfig = { damping: 25, stiffness: 700 };
     const springX = useSpring(mouseX, springConfig);
     const springY = useSpring(mouseY, springConfig);
+    const rotateX = useTransform(springY, (y) => y * 8);
+    const rotateY = useTransform(springX, (x) => x * -8);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -34,21 +39,27 @@ export const Hero = () => {
 
     return (
         <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-slate-950 text-white">
-            <div className="absolute inset-0 z-0">
+            <motion.div
+                style={{ opacity: heroOpacity, scale: heroScale, filter: heroFilter }}
+                className="absolute inset-0 z-0"
+            >
                 <HeroScene />
-            </div>
+            </motion.div>
 
             <div className="absolute inset-0 z-[1] bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/80 pointer-events-none" />
             <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(15,23,42,0.6)_70%)] pointer-events-none" />
 
-            <div className="container px-4 md:px-6 flex flex-col items-center z-10">
+            <motion.div
+                style={{ opacity: heroOpacity }}
+                className="container px-4 md:px-6 flex flex-col items-center z-10"
+            >
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     style={{
                         y: y1,
-                        rotateX: useTransform(springY, (y) => y * 8),
-                        rotateY: useTransform(springX, (x) => x * -8),
+                        rotateX,
+                        rotateY,
                     }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="text-center perspective-1000"
@@ -59,7 +70,7 @@ export const Hero = () => {
                         transition={{ delay: 0.2 }}
                         className="text-xs md:text-sm font-mono tracking-[0.4em] uppercase text-blue-400 mb-6"
                     >
-                        Portfolio · Data Engineer
+                        Data Engineer
                     </motion.p>
 
                     <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-2 hero-gradient-text">
@@ -132,7 +143,7 @@ export const Hero = () => {
                         <ArrowDown size={16} />
                     </motion.div>
                 </motion.div>
-            </div>
+            </motion.div>
         </section>
     );
 };

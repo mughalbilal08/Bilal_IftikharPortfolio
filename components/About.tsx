@@ -1,17 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { ScrollReveal } from "./ScrollReveal";
 
 export const About = () => {
     return (
         <section id="about" className="py-20 md:py-32 px-4 md:px-16 bg-zinc-50 relative overflow-hidden">
             <div className="container mx-auto max-w-4xl">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.5 }}
-                >
+                <ScrollReveal>
                     <h2 className="text-sm font-mono tracking-widest text-blue-600 mb-8 uppercase font-bold">01. Profile</h2>
                     <p className="text-lg md:text-xl font-light leading-relaxed text-zinc-700 max-w-3xl">
                         Motivated <span className="text-zinc-900 font-bold">Data Engineer</span> with hands-on
@@ -23,7 +18,7 @@ export const About = () => {
                         Passionate about turning raw data into reliable, high
                         impact insights.
                     </p>
-                </motion.div>
+                </ScrollReveal>
             </div>
         </section>
     );

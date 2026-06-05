@@ -15,9 +15,10 @@ import {
     Rocket,
     type LucideIcon,
 } from "lucide-react";
-import React, { useState } from "react";
+import { ScrollReveal } from "./ScrollReveal";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 
 const ProjectsBackground = dynamic(() => import("./three/ProjectsBackground"), {
     ssr: false,
@@ -136,12 +137,7 @@ export const Projects = () => {
             />
 
             <div className="container mx-auto max-w-7xl relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mb-12 md:text-center max-w-3xl mx-auto"
-                >
+                <ScrollReveal className="mb-12 md:text-center max-w-3xl mx-auto">
                     <h2 className="text-sm font-mono tracking-widest text-violet-600 mb-4 uppercase font-bold">
                         My Work
                     </h2>
@@ -152,7 +148,7 @@ export const Projects = () => {
                         A collection of data engineering solutions and software applications
                         I&apos;ve built to solve real-world problems.
                     </p>
-                </motion.div>
+                </ScrollReveal>
 
                 <div className="flex flex-wrap justify-center gap-3 mb-12">
                     {filters.map(({ id, label, icon: Icon }) => {
