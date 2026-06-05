@@ -13,9 +13,15 @@ import {
     Database,
     Code2,
     Rocket,
+    type LucideIcon,
 } from "lucide-react";
 import React, { useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const ProjectsBackground = dynamic(() => import("./three/ProjectsBackground"), {
+    ssr: false,
+});
 
 type ProjectCategory = "data-engineering" | "software-development";
 
@@ -23,7 +29,7 @@ interface Project {
     title: string;
     section: ProjectCategory;
     tech: string[];
-    icon: React.ElementType;
+    icon: LucideIcon;
     description: string;
     iconBg: string;
     iconColor: string;
@@ -106,7 +112,7 @@ const projects: Project[] = [
     },
 ];
 
-const filters: { id: ProjectCategory; label: string; icon: React.ElementType }[] = [
+const filters: { id: ProjectCategory; label: string; icon: LucideIcon }[] = [
     { id: "data-engineering", label: "Data Engineering", icon: Database },
     { id: "software-development", label: "Software Development", icon: Code2 },
 ];
@@ -117,9 +123,12 @@ export const Projects = () => {
     const filteredProjects = projects.filter((p) => p.section === activeCategory);
 
     return (
-        <section id="projects" className="py-20 md:py-32 px-4 md:px-16 bg-slate-50 relative overflow-hidden">
+        <section id="projects" className="py-20 md:py-32 px-4 md:px-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
+            <div className="absolute inset-0 z-0 opacity-40">
+                <ProjectsBackground />
+            </div>
             <div
-                className="absolute inset-0 z-0 opacity-[0.03]"
+                className="absolute inset-0 z-0 opacity-[0.04]"
                 style={{
                     backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`,
                     backgroundSize: "40px 40px",
@@ -152,10 +161,10 @@ export const Projects = () => {
                             <button
                                 key={id}
                                 onClick={() => setActiveCategory(id)}
-                                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
+                                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border backdrop-blur-sm ${
                                     isActive
-                                        ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-600/20"
-                                        : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
+                                        ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-600/30 scale-105"
+                                        : "bg-white/80 text-zinc-700 border-zinc-200 hover:border-blue-200 hover:bg-white hover:shadow-md"
                                 }`}
                             >
                                 <Icon size={16} />
@@ -189,7 +198,7 @@ export const Projects = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-16 rounded-2xl bg-violet-50 border border-violet-100 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6"
+                    className="mt-16 rounded-2xl bg-gradient-to-r from-violet-50 to-blue-50 border border-violet-100/80 backdrop-blur-sm p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg shadow-violet-500/5"
                 >
                     <div className="flex items-center gap-4 text-center md:text-left">
                         <div className="hidden sm:flex bg-violet-100 p-3 rounded-xl text-violet-600">
@@ -227,7 +236,7 @@ const ProjectCard = ({
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.08 }}
-            className="group bg-white rounded-2xl border border-zinc-100 p-6 hover:border-blue-100 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 flex flex-col"
+            className="group bg-white/80 backdrop-blur-md rounded-2xl border border-white/60 p-6 hover:border-blue-200/80 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col"
         >
             <div className="flex items-start gap-4 mb-5">
                 {variant === "software-development" && project.gradient ? (

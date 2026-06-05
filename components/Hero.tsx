@@ -1,94 +1,136 @@
-
 "use client";
 
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useEffect } from "react";
+
+const HeroScene = dynamic(() => import("./three/HeroScene"), {
+    ssr: false,
+    loading: () => (
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
+    ),
+});
 
 export const Hero = () => {
     const { scrollY } = useScroll();
-    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-    const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+    const y1 = useTransform(scrollY, [0, 500], [0, 120]);
 
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
-
     const springConfig = { damping: 25, stiffness: 700 };
     const springX = useSpring(mouseX, springConfig);
     const springY = useSpring(mouseY, springConfig);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            const { innerWidth, innerHeight } = window;
-            mouseX.set(e.clientX / innerWidth - 0.5);
-            mouseY.set(e.clientY / innerHeight - 0.5);
+            mouseX.set(e.clientX / window.innerWidth - 0.5);
+            mouseY.set(e.clientY / window.innerHeight - 0.5);
         };
-
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, [mouseX, mouseY]);
 
     return (
-        <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-white text-foreground">
-            {/* Background Elements (Subtle Data Flow abstract) */}
-            <div className="absolute inset-0 pointer-events-none">
-                <motion.div
-                    style={{ x: useTransform(springX, (x) => x * -50), y: useTransform(springY, (y) => y * -50) }}
-                    className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]"
-                />
-                <motion.div
-                    style={{ x: useTransform(springX, (x) => x * 60), y: useTransform(springY, (y) => y * 60) }}
-                    className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px]"
-                />
+        <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-slate-950 text-white">
+            <div className="absolute inset-0 z-0">
+                <HeroScene />
             </div>
 
-            <div className="container px-4 md:px-6 flex flex-col items-center z-10 perspective-1000">
+            <div className="absolute inset-0 z-[1] bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/80 pointer-events-none" />
+            <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(15,23,42,0.6)_70%)] pointer-events-none" />
+
+            <div className="container px-4 md:px-6 flex flex-col items-center z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    style={{ y: y1, rotateX: useTransform(springY, (y) => y * 10), rotateY: useTransform(springX, (x) => x * -10) }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="text-center"
+                    style={{
+                        y: y1,
+                        rotateX: useTransform(springY, (y) => y * 8),
+                        rotateY: useTransform(springX, (x) => x * -8),
+                    }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="text-center perspective-1000"
                 >
-                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-2 bg-clip-text text-transparent bg-gradient-to-b from-zinc-900 to-zinc-500">
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-xs md:text-sm font-mono tracking-[0.4em] uppercase text-blue-400 mb-6"
+                    >
+                        Portfolio · Data Engineer
+                    </motion.p>
+
+                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-2 hero-gradient-text">
                         BILAL
                     </h1>
-                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-zinc-700 to-zinc-400">
+                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 hero-gradient-text-alt">
                         IFTIKHAR
                     </h1>
-                    <p className="text-sm md:text-lg font-medium tracking-[0.3em] uppercase text-blue-600 font-bold">
-                        Data Engineer
-                    </p>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="text-base md:text-xl text-zinc-300 max-w-xl mx-auto leading-relaxed mb-10"
+                    >
+                        Building scalable data pipelines, real-time streaming systems,
+                        and full-stack applications on{" "}
+                        <span className="text-blue-400 font-semibold">Azure & AWS</span>.
+                    </motion.p>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="flex flex-wrap justify-center gap-4"
+                    >
+                        <Link
+                            href="#projects"
+                            className="px-8 py-3.5 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 hover:scale-105"
+                        >
+                            View Projects
+                        </Link>
+                        <Link
+                            href="#contact"
+                            className="px-8 py-3.5 rounded-full border border-white/20 text-white font-semibold text-sm hover:bg-white/10 transition-all backdrop-blur-sm hover:scale-105"
+                        >
+                            Get In Touch
+                        </Link>
+                    </motion.div>
                 </motion.div>
 
-                {/* Social Links - Vertical on Desktop, Horizontal on Mobile */}
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
+                    transition={{ delay: 0.9, duration: 0.5 }}
                     className="absolute bottom-8 left-8 md:top-1/2 md:-translate-y-1/2 md:left-12 flex md:flex-col gap-6 text-zinc-400"
                 >
-                    <Link href="https://www.linkedin.com/in/bilal-iftikhar-26130a262" target="_blank" className="hover:text-blue-600 transition-colors">
+                    <Link href="https://www.linkedin.com/in/bilal-iftikhar-26130a262" target="_blank" className="hover:text-blue-400 transition-colors hover:scale-110 transform duration-200">
                         <Linkedin size={20} />
                     </Link>
-                    <Link href="https://github.com/mughalbilal08" target="_blank" className="hover:text-blue-600 transition-colors">
+                    <Link href="https://github.com/mughalbilal08" target="_blank" className="hover:text-blue-400 transition-colors hover:scale-110 transform duration-200">
                         <Github size={20} />
                     </Link>
-                    <Link href="mailto:bilaliftikhar.967@gmail.com" className="hover:text-blue-600 transition-colors">
+                    <Link href="mailto:bilaliftikhar.967@gmail.com" className="hover:text-blue-400 transition-colors hover:scale-110 transform duration-200">
                         <Mail size={20} />
                     </Link>
                 </motion.div>
 
-                {/* Scroll Indicator */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5, duration: 1 }}
-                    className="absolute bottom-12 right-12 hidden md:flex flex-col items-center gap-2"
+                    transition={{ delay: 1.2, duration: 1 }}
+                    className="absolute bottom-10 flex flex-col items-center gap-2 text-zinc-500"
                 >
-                    <span className="text-[10px] uppercase tracking-widest -rotate-90 origin-bottom-right translate-x-3 mb-8 text-secondary">Scroll</span>
-                    <div className="w-[1px] h-12 bg-gradient-to-b from-secondary to-transparent" />
+                    <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+                    <motion.div
+                        animate={{ y: [0, 6, 0] }}
+                        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                    >
+                        <ArrowDown size={16} />
+                    </motion.div>
                 </motion.div>
             </div>
         </section>
